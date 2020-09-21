@@ -9,11 +9,12 @@ db_connection = DAL.db_connect()
 
 character_ids = DAL.all_characters(db_connection)
 
-affiliations = ESI.character_affiliations(character_ids)
+if len(character_ids) > 0:
+    affiliations = ESI.character_affiliations(character_ids)
 
-for character in affiliations:
-    if character["corporation_id"] == 1000001:
-        DAL.deactivate_character(db_connection, character["character_id"])
+    for character in affiliations:
+        if character["corporation_id"] == 1000001:
+            DAL.deactivate_character(db_connection, character["character_id"])
 
 print(f"Finished successfully at {str(datetime.utcnow())}")
 sys.exit(0)
